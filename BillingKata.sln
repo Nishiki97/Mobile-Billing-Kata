@@ -5,6 +5,8 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillingKata", "BillingKata\BillingKata.csproj", "{73035A1D-5E3B-4389-9AA7-9589C120CDF8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillingKataTest", "BillingKataTest\BillingKataTest.csproj", "{B9DB2177-2881-42A0-AF4F-99729CC62632}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{73035A1D-5E3B-4389-9AA7-9589C120CDF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73035A1D-5E3B-4389-9AA7-9589C120CDF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73035A1D-5E3B-4389-9AA7-9589C120CDF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9DB2177-2881-42A0-AF4F-99729CC62632}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9DB2177-2881-42A0-AF4F-99729CC62632}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9DB2177-2881-42A0-AF4F-99729CC62632}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9DB2177-2881-42A0-AF4F-99729CC62632}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
