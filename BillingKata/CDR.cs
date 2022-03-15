@@ -60,6 +60,10 @@ namespace BillingKata
         }
         //CallType
         private string callType;
+        //newStartedTime
+        private double newStartedTime;
+        //callEndedTime
+        private double callEndedTime;
         #endregion
 
         #region default and overload constructors
@@ -121,8 +125,8 @@ namespace BillingKata
             string newTimeWithDot = newTimeWithColon.Replace(':', '.');
             //Console.WriteLine(newTimeWithDot);
 
-            double newStartedTime = double.Parse(newTimeWithDot, System.Globalization.CultureInfo.InvariantCulture);
-            Console.WriteLine(newStartedTime);
+            newStartedTime = double.Parse(newTimeWithDot, System.Globalization.CultureInfo.InvariantCulture);
+            //Console.WriteLine(newStartedTime);
 
             if(duration == 0.00)
             {
@@ -130,7 +134,7 @@ namespace BillingKata
             }
             else
             {
-                double callEndedTime = newStartedTime + duration;
+                callEndedTime = newStartedTime + duration;
             }
         }
         #endregion
