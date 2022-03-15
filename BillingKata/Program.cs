@@ -19,6 +19,7 @@ namespace BillingKata
             CDR cdr = new CDR("077-5649621", "077-4565324", Convert.ToDateTime("1/1/2010 12:10:15 PM", cultureCDR), 5.30);
             cdr.addNewCDR();
             cdr.CheckExtention();
+            cdr.CheckHourType();
         }
     }
 }

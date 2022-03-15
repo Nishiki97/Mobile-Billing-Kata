@@ -111,6 +111,28 @@ namespace BillingKata
             Console.WriteLine(callType);
 
         }
+
+        public void CheckHourType()
+        {
+            DateTime dt = DateTime.Parse(startingTime.ToString());
+            //Console.WriteLine(dt.ToString("HH:mm"));
+
+            string newTimeWithColon = dt.ToString("HH:mm");
+            string newTimeWithDot = newTimeWithColon.Replace(':', '.');
+            //Console.WriteLine(newTimeWithDot);
+
+            double newStartedTime = double.Parse(newTimeWithDot, System.Globalization.CultureInfo.InvariantCulture);
+            Console.WriteLine(newStartedTime);
+
+            if(duration == 0.00)
+            {
+                Console.WriteLine("Duration Cannot be zero!");
+            }
+            else
+            {
+                double callEndedTime = newStartedTime + duration;
+            }
+        }
         #endregion
     }
 }
