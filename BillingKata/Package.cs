@@ -84,8 +84,6 @@ namespace BillingKata
             billingType = "";
             callType = "";
             hourType = "";
-            peakHours = 0;
-            offPeakHours = 0;
         }
 
         public Package(char packageName, int rental, string billingType)
