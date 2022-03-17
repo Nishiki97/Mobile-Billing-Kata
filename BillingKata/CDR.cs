@@ -61,9 +61,9 @@ namespace BillingKata
         //CallType
         private string callType;
         //newStartedTime
-        private double newStartedTime;
+        public double newStartedTime;
         //callEndedTime
-        private double callEndedTime;
+        public double callEndedTime;
         #endregion
 
         #region default and overload constructors
@@ -98,7 +98,7 @@ namespace BillingKata
 
         }
 
-        public void CheckExtention()
+        public string CheckExtention()
         {
             if(subscriberPhoneNo == "" || receiverPhoneNo == "")
             {
@@ -111,12 +111,12 @@ namespace BillingKata
 
                 callType = (splitSubscriberNo.Equals(splitReceiverPhoneNo)) ? "Local" : "Long distance calls";
             }
-            
-            Console.WriteLine(callType);
+
+            return callType;
 
         }
 
-        public void CheckHourType()
+        public void getStartedandEndedTime()
         {
             DateTime dt = DateTime.Parse(startingTime.ToString());
             //Console.WriteLine(dt.ToString("HH:mm"));
@@ -128,7 +128,7 @@ namespace BillingKata
             newStartedTime = double.Parse(newTimeWithDot, System.Globalization.CultureInfo.InvariantCulture);
             //Console.WriteLine(newStartedTime);
 
-            if(duration == 0.00)
+            if (duration == 0.00)
             {
                 Console.WriteLine("Duration Cannot be zero!");
             }
