@@ -31,13 +31,15 @@ namespace BillingKata
             CDR callDetailRecords = new CDR();
             
             CDR cdr1 = new CDR("077-5649621", "077-4565324", Convert.ToDateTime(DateTime.Now, cultureCDR), 3600);
-            callDetailRecords.cdrDictionary.Add(cdr1);
+            callDetailRecords.cdrList.Add(cdr1);
             CDR cdr2 = new CDR("077-5649621", "077-1123532", Convert.ToDateTime(DateTime.Now, cultureCDR), 340);
-            callDetailRecords.cdrDictionary.Add(cdr2);
+            callDetailRecords.cdrList.Add(cdr2);
             CDR cdr3 = new CDR("071-5645674", "077-1123111", Convert.ToDateTime(DateTime.Now, cultureCDR), 340);
-            callDetailRecords.cdrDictionary.Add(cdr3);
+            callDetailRecords.cdrList.Add(cdr3);
             CDR cdr4 = new CDR("077-5649621", "077-1123000", Convert.ToDateTime(new DateTime(2021, 6, 10, 5, 10, 20)), 3600);
-            callDetailRecords.cdrDictionary.Add(cdr4);
+            callDetailRecords.cdrList.Add(cdr4);
+            CDR cdr5 = new CDR("077-5649621", "071-6753465", Convert.ToDateTime(new DateTime(2021, 5, 10, 5, 10, 20)), 3600);
+            callDetailRecords.cdrList.Add(cdr5);
             callDetailRecords.GetCDRList(customer.GetCustomerDetails(userName), month);
             callDetailRecords.CheckExtention();
 

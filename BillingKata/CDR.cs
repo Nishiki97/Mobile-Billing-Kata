@@ -11,53 +11,29 @@ namespace BillingKata
         private string subscriberPhoneNo;
         public string SubscriberPhoneNo
         {
-            get
-            {
-                return subscriberPhoneNo;
-            }
-            set
-            {
-                subscriberPhoneNo = value;
-            }
+            get { return subscriberPhoneNo; }
+            set { subscriberPhoneNo = value; }
         }
         //receiverPhoneNo
         private string receiverPhoneNo;
         public string ReceiverPhoneNo
         {
-            get
-            {
-                return receiverPhoneNo;
-            }
-            set
-            {
-                receiverPhoneNo = value;
-            }
+            get { return receiverPhoneNo; }
+            set { receiverPhoneNo = value; }
         }
         //startingTime
         private DateTime startingTime;
         public DateTime StartingTime
         {
-            get
-            {
-                return startingTime;
-            }
-            set
-            {
-                startingTime = value;
-            }
+            get { return startingTime; }
+            set { startingTime = value; }
         }
         //duration
         private double duration;
         public double Duration
         {
-            get
-            {
-                return duration;
-            }
-            set
-            {
-                duration = value;
-            }
+            get { return duration; }
+            set { duration = value; }
         }
         //CallType
         private string callType;
@@ -69,11 +45,12 @@ namespace BillingKata
 
         //newStartedTime
         public double newStartedTime;
-
         //callEndedTime
-        private double callEndedTime;
-
-        public List<CDR> cdrDictionary = new List<CDR>();
+        public double callEndedTime;
+        //individual Cost
+        public double individualCost;
+        //CDR list
+        public List<CDR> cdrList = new List<CDR>();
         #endregion
 
         #region default and overload constructors
@@ -95,15 +72,16 @@ namespace BillingKata
         #endregion
 
         #region methods
+        //get call detail records to the relevant user and user input month
         public List<CDR> GetCDRList(Customer customer, string month)
         {
             List<CDR> newCdrDictionary = new List<CDR>();
 
-            for (int i = 0; i < cdrDictionary.Count; i++)
+            for (int i = 0; i < cdrList.Count; i++)
             {
-                if(customer.PhoneNumber == cdrDictionary[i].subscriberPhoneNo && month == cdrDictionary[i].startingTime.ToString("MMMM"))
+                if(customer.PhoneNumber == cdrList[i].subscriberPhoneNo && month == cdrList[i].startingTime.ToString("MMMM"))
                 {
-                    CDR cdr = cdrDictionary[i];
+                    CDR cdr = cdrList[i];
                     subscriberPhoneNo = cdr.subscriberPhoneNo;
                     receiverPhoneNo = cdr.receiverPhoneNo;
                     startingTime = cdr.startingTime;
@@ -117,6 +95,7 @@ namespace BillingKata
 
         }
 
+        //check the call extention either it's local or long distance
         public string CheckExtention()
         {
             if(subscriberPhoneNo == "" || receiverPhoneNo == "")
@@ -135,25 +114,23 @@ namespace BillingKata
 
         }
 
+        //get the start and the end call time
         public void getStartedandEndedTime()
         {
             DateTime dt = DateTime.Parse(startingTime.ToString());
-            //Console.WriteLine(dt.ToString("HH:mm"));
-
+            
             string newTimeWithColon = dt.ToString("HH:mm");
             string newTimeWithDot = newTimeWithColon.Replace(':', '.');
-            //Console.WriteLine(newTimeWithDot);
-
+            
             newStartedTime = double.Parse(newTimeWithDot, System.Globalization.CultureInfo.InvariantCulture);
-            //Console.WriteLine(newStartedTime);
-
+            
             if (duration == 0.00)
             {
                 Console.WriteLine("Duration Cannot be zero!");
             }
             else
             {
-                callEndedTime = newStartedTime + duration;
+                callEndedTime = newStartedTime + duration / 3600;
             }
         }
         #endregion

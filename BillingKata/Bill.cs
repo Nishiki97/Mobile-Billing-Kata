@@ -57,19 +57,19 @@ namespace BillingKata
                 switch (customer.PackageCode)
                 {
                     case 'A':
-                        totalCallCharge = packageA.CalculateHourCharge(cdr);
+                        totalCallCharge = packageA.CalculateHourCharge(cdrList);
                         rental = packageA.Rental;
                         break;
                     case 'B':
-                        totalCallCharge = packageB.CalculateHourCharge(cdr);
+                        totalCallCharge = packageB.CalculateHourCharge(cdrList);
                         rental = packageB.Rental;
                         break;
                     case 'C':
-                        totalCallCharge = packageC.CalculateHourCharge(cdr);
+                        totalCallCharge = packageC.CalculateHourCharge(cdrList);
                         rental = packageC.Rental;
                         break;
                     case 'D':
-                        totalCallCharge = packageD.CalculateHourCharge(cdr);
+                        totalCallCharge = packageD.CalculateHourCharge(cdrList);
                         rental = packageD.Rental;
                         break;
                     default:

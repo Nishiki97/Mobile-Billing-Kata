@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace BillingKata
@@ -11,66 +10,38 @@ namespace BillingKata
         private string fullName;
         public string FullName
         {
-            get
-            {
-                return fullName;
-            }
-            set
-            {
-                fullName = value;
-            }
+            get { return fullName; }
+            set { fullName = value; }
         }
         //billingAddress
         private string billingAddress;
-        public string BillingAddress { 
-            get
-            {
-                return billingAddress;
-            }
-            set 
-            { 
-                billingAddress = value;
-            } 
+        public string BillingAddress 
+        {  
+            get { return billingAddress; }
+            set { billingAddress = value; }
         }
         //phoneNumber
         private string phoneNumber;
         public string PhoneNumber
         {
-            get
-            {
-                return phoneNumber;
-            }
-            set
-            {
-                phoneNumber = value;
-            }
+            get { return phoneNumber; }
+            set { phoneNumber = value; }
         }
         //packagecode
         private char packageCode;
         public char PackageCode
         {
-            get
-            {
-                return packageCode;
-            }
-            set
-            {
-                packageCode = value;
-            }
+            get { return packageCode; }
+            set { packageCode = value; }
         }
         //RegisteredDate
         private DateTime registeredDate;
         public DateTime RegisteredDate
         {
-            get
-            {
-                return registeredDate;
-            }
-            set
-            {
-                registeredDate = value;
-            }
+            get { return registeredDate; }
+            set { registeredDate = value; }
         }
+        //customer list
         public List<Customer> customerList = new List<Customer>();
         #endregion
 
@@ -95,6 +66,7 @@ namespace BillingKata
         #endregion
 
         #region methods
+        //get customer details according to user input
         public Customer GetCustomerDetails(string username)
         {
             fullName = username;
