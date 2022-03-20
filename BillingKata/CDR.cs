@@ -95,13 +95,13 @@ namespace BillingKata
         #endregion
 
         #region methods
-        public List<CDR> GetCDRList(Customer customer)
+        public List<CDR> GetCDRList(Customer customer, string month)
         {
             List<CDR> newCdrDictionary = new List<CDR>();
 
             for (int i = 0; i < cdrDictionary.Count; i++)
             {
-                if(customer.PhoneNumber == cdrDictionary[i].subscriberPhoneNo)
+                if(customer.PhoneNumber == cdrDictionary[i].subscriberPhoneNo && month == cdrDictionary[i].startingTime.ToString("MMMM"))
                 {
                     CDR cdr = cdrDictionary[i];
                     subscriberPhoneNo = cdr.subscriberPhoneNo;

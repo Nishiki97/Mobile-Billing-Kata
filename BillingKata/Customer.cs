@@ -98,6 +98,7 @@ namespace BillingKata
         public Customer GetCustomerDetails(string username)
         {
             fullName = username;
+
             Customer newSelectedCustomer = new Customer();
 
             foreach (Customer cutsomer in customerList)
