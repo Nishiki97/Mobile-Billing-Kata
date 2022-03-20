@@ -60,10 +60,16 @@ namespace BillingKata
         }
         //CallType
         private string callType;
+        public string CallType
+        {
+            get { return callType; }
+            set { callType = value; }
+        }
+
         //newStartedTime
         public double newStartedTime;
         //callEndedTime
-        public double callEndedTime;
+        private double callEndedTime;
         #endregion
 
         #region default and overload constructors
@@ -89,13 +95,14 @@ namespace BillingKata
         {
             var cdr = new ArrayList() { subscriberPhoneNo, receiverPhoneNo, startingTime, duration };
 
+            /*
             Console.WriteLine("New CDR added!");
 
             for (int i = 0; i < cdr.Count; i++)
             {
                 Console.WriteLine(cdr[i]);
             }
-
+            */
         }
 
         public string CheckExtention()

@@ -20,7 +20,6 @@ namespace BillingKataTest
 
             Customer cus = new Customer("Nishiki Yapa", "07, Gunasekara Mawatha, Mattumagala, Ragama", "077-5649621", 'A', Convert.ToDateTime("1/1/2010 12:10:15 PM", culture));
             cus.addNewCustomer();
-
         }
         #endregion
 
@@ -57,17 +56,8 @@ namespace BillingKataTest
         {
             CultureInfo culture = new CultureInfo("en-US");
 
-            CDR cdr = new CDR("077-5649621", "", Convert.ToDateTime("1/1/2010 12:10:15 PM", culture), 5.30);
+            CDR cdr = new CDR("077-5649621", null, Convert.ToDateTime("1/1/2010 12:10:15 PM", culture), 5.30);
             cdr.CheckExtention();
-        }
-
-        [Test]
-        public void CheckHourType_withZeroDuration_shouldReturnError()
-        {
-            CultureInfo culture = new CultureInfo("en-US");
-
-            CDR cdr = new CDR("077-5649621", "071-4565324", Convert.ToDateTime("1/1/2010 12:10:15 PM", culture), 0.00);
-            cdr.CheckHourType();
         }
         #endregion
     }

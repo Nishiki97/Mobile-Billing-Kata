@@ -10,87 +10,122 @@ namespace BillingKata
     {
         #region variable declaration
         private char packageName;
-        public char PackageName { 
-            get 
-            { 
-                return packageName; 
-            } 
-            set
-            {
-                packageName = value;
-            }
-        }
-        private int rental;
-        public int Rental
+        public char PackageName
         {
-            get
-            {
-                return rental;
-            }
-            set 
-            { 
-                rental = value; 
-            }
+            get { return packageName; }
+            set { packageName = value; }
         }
+
+        private double rental;
+        public double Rental
+        {
+            get { return rental; }  
+            set { rental = value; }
+        }
+
         private string billingType;
         public string BillingType
         {
-            get 
-            { 
-                return billingType; 
-            }
-            set 
-            { 
-                billingType = value; 
-            }
+            get { return billingType; }
+            set { billingType = value; }
         }
+
         private string callType;
         public string CallType
         {
-            get 
-            { 
-                return callType; 
-            }
-            set
-            {
-                callType = value;
-            }
+            get { return callType; }
+            set { callType = value; }
         }
-        private string hourType;
-        public string HourType
+
+        private int localPeakHourCharge;
+        public int LocalPeakHourChargegion
         {
-            get
-            {
-                return hourType;
-            }
-            set
-            {
-                hourType = value;
-            }
+            get { return localPeakHourCharge; }
+            set { localPeakHourCharge = value; }
         }
-        private double peakHoursStart;
-        private double peakHoursEnd;
-        private double offPeakHoursStart;
-        private double offPeakHoursEnd;
-        private double peakHourCharge;
-        private double offPealHourCharge;
+
+        private int localOffPeakHourCharge;
+        public int LocalOffPeakHourCharge
+        {
+            get { return localOffPeakHourCharge; }
+            set { localOffPeakHourCharge = value; }
+        }
+
+        private int longDistancePeakHourCharge;
+        public int LongDistancePeakHourCharge
+        {
+            get { return longDistancePeakHourCharge; }
+            set { longDistancePeakHourCharge = value; }
+        }
+
+        private int longDistanceOffPeakHourCharge;
+        public int LongDistanceOffPeakHourCharge
+        {
+            get { return longDistanceOffPeakHourCharge; }
+            set { longDistanceOffPeakHourCharge = value; }
+        }
+
+        private double peakHourStartTime;
+        public double PeakHourStartTime
+        {
+            get { return peakHourStartTime; }
+            set { peakHourStartTime = value; }
+        }
+
+        private double peakHourEndTime;
+        public double PeakHourEndTime
+        {
+            get { return peakHourEndTime; }
+            set { peakHourEndTime = value; }
+        }
+
+        private double offPeakHourStartTime;
+        public double OffPeakHourStartTime
+        {
+            get { return offPeakHourStartTime; }
+            set { offPeakHourStartTime = value; }
+        }
+
+        private double offPeakHourEndTime;
+        public double OffPeakHourEndTime
+        {
+            get { return offPeakHourEndTime; }
+            set { OffPeakHourEndTime = value; }
+        }
         #endregion
 
         #region default and overload constructors
         public Package()
         {
             packageName = 'A';
-            rental = 0;
+            rental = 0.00;
             billingType = "";
             callType = "";
-            hourType = "";
+            localPeakHourCharge = 0;
+            localOffPeakHourCharge = 0;
+            longDistancePeakHourCharge = 0;
+            longDistanceOffPeakHourCharge = 0;
+            peakHourEndTime = 0;
+            peakHourStartTime = 0;
+            offPeakHourEndTime = 0;
+            offPeakHourStartTime = 0;
         }
 
-        public Package(char packageName, int rental, string billingType)
+        public Package(char packageName, double rental, string billingType, string callType, int localPeakHourCharge, int localOffPeakHourCharge, 
+            int longDistancePeakHourCharge, int longDistanceOffPeakHourCharge, double peakHourEndTime, double peakHourStartTime, double offPeakHourEndTime, double offPeakHourStartTime)
         {
             this.packageName=packageName;
             this.rental=rental;
             this.billingType=billingType;
+            this.callType=callType;
+            this.localPeakHourCharge=localPeakHourCharge;
+            this.localOffPeakHourCharge=localOffPeakHourCharge;
+            this.longDistancePeakHourCharge = longDistancePeakHourCharge;
+            this.longDistanceOffPeakHourCharge = longDistanceOffPeakHourCharge;
+            this.peakHourEndTime = peakHourEndTime;
+            this.peakHourStartTime = peakHourStartTime;
+            this.offPeakHourEndTime = offPeakHourEndTime;
+            this.offPeakHourStartTime = offPeakHourStartTime;
         }
         #endregion
 
@@ -99,68 +134,79 @@ namespace BillingKata
         {
             CallType = cdr.CheckExtention();
         }
-        #endregion
 
-        #region move this method to bill.cs
-        public virtual void GetHourCost(CDR cdr)
+        private int GetValueByBillingType()
         {
-            cdr.getStartedandEndedTime();
-
-            double startedTime = cdr.newStartedTime;
-            double endedTime = cdr.callEndedTime;
-            double timeGap = 0.00;
-
-            for(double i = peakHoursStart; i < peakHoursEnd; i++)
+            switch (BillingType)
             {
-                if(i == startedTime)
+                case "Per minute":
+                    return 60;
+                default:
+                    return 3600;
+            }
+        }
+
+        private double GetOffPeakCharge(CDR cdr)
+        {
+            double FirstOffPeakhourTypeCharge = 0.00;
+            double SecondOffPeakhourTypeCharge = 0.00;
+            double timGapByMinute = cdr.Duration / GetValueByBillingType();
+
+            for (double i = offPeakHourStartTime; i < 24.00; i++)
+            {
+                switch (CallType)
                 {
-                    if(endedTime < peakHoursEnd)
-                    {
-                        timeGap = endedTime - startedTime;
-
-                        switch (billingType)
-                        {
-                            case "Per minute" when callType == "Local":
-                                peakHourCharge = timeGap / 60 * 3;
-                                break;
-                            case "Per minute" when callType == "Long distance call":
-                                peakHourCharge = timeGap / 60 * 5;
-                                break;
-                            case "Per second" when callType == "Local":
-                                peakHourCharge = timeGap / 3600 * 4;
-                                break;
-                            default:
-                                peakHourCharge = timeGap / 3600 * 6;
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        timeGap  = peakHoursEnd - startedTime;
-
-                        switch (billingType)
-                        {
-                            case "Per minute" when callType == "Local":
-                                peakHourCharge = timeGap / 60 * 3;
-                                break;
-                            case "Per minute" when callType == "Long distance call":
-                                peakHourCharge = timeGap / 60 * 5;
-                                break;
-                            case "Per second" when callType == "Local":
-                                peakHourCharge = timeGap / 3600 * 4;
-                                break;
-                            default:
-                                peakHourCharge = timeGap / 3600 * 6;
-                                break;
-                        }
-                    }
+                    case "Local":
+                        FirstOffPeakhourTypeCharge = timGapByMinute * localOffPeakHourCharge;
+                        break;
+                    default:
+                        FirstOffPeakhourTypeCharge = timGapByMinute * longDistanceOffPeakHourCharge;
+                        break;
                 }
             }
 
-            
+            for (double j = 00.00; j < offPeakHourEndTime; j++)
+            {
+                switch (CallType)
+                {
+                    case "Local":
+                        SecondOffPeakhourTypeCharge = timGapByMinute * localOffPeakHourCharge;
+                        break;
+                    default:
+                        SecondOffPeakhourTypeCharge = timGapByMinute * longDistanceOffPeakHourCharge;
+                        break;
+                }
+
+            }
+
+            return FirstOffPeakhourTypeCharge + SecondOffPeakhourTypeCharge;
+        }
+
+        private double GetPeakCharge(CDR cdr)
+        {
+            double PeakhourTypeCharge = 0.00;
+            double timGapByMinute = cdr.Duration / GetValueByBillingType();
+
+            for (double j = peakHourStartTime; j < peakHourEndTime; j++)
+            {
+                switch (CallType)
+                {
+                    case "Local":
+                        PeakhourTypeCharge = timGapByMinute * localPeakHourCharge;
+                        break;
+                    default:
+                        PeakhourTypeCharge = timGapByMinute * longDistancePeakHourCharge;
+                        break;
+                }
+            }
+
+            return PeakhourTypeCharge;
+        }
+
+        public double CalculateHourCharge(CDR cdr)
+        {
+            return GetPeakCharge(cdr) + GetOffPeakCharge(cdr);
         }
         #endregion
-
-        
     }
 }

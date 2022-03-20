@@ -98,13 +98,14 @@ namespace BillingKata
         {
             var customers = new ArrayList() { fullName, billingAddress, phoneNumber, packageCode, registeredDate};
 
+            /*
             Console.WriteLine("New customers added!");
 
             for (int i = 0; i < customers.Count; i++)
             {
                 Console.WriteLine(customers[i]);
             }
-            
+            */
         }
         #endregion
     }
