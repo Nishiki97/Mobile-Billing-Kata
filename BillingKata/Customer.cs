@@ -71,6 +71,7 @@ namespace BillingKata
                 registeredDate = value;
             }
         }
+        public List<Customer> customerList = new List<Customer>();
         #endregion
 
         #region default and overload constructors
@@ -94,18 +95,26 @@ namespace BillingKata
         #endregion
 
         #region methods
-        public void addNewCustomer()
+        public Customer GetCustomerDetails(string username)
         {
-            var customers = new ArrayList() { fullName, billingAddress, phoneNumber, packageCode, registeredDate};
+            fullName = username;
+            Customer newSelectedCustomer = new Customer();
 
-            /*
-            Console.WriteLine("New customers added!");
-
-            for (int i = 0; i < customers.Count; i++)
+            foreach (Customer cutsomer in customerList)
             {
-                Console.WriteLine(customers[i]);
+                if(cutsomer.fullName == fullName)
+                {
+                    fullName=cutsomer.fullName;
+                    billingAddress=cutsomer.billingAddress;
+                    phoneNumber=cutsomer.phoneNumber;
+                    packageCode=cutsomer.packageCode;
+                    registeredDate=cutsomer.registeredDate;
+
+                    newSelectedCustomer = cutsomer;
+                }
             }
-            */
+
+            return newSelectedCustomer;
         }
         #endregion
     }

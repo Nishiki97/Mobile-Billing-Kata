@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace BillingKata
 {
@@ -68,8 +69,11 @@ namespace BillingKata
 
         //newStartedTime
         public double newStartedTime;
+
         //callEndedTime
         private double callEndedTime;
+
+        public List<CDR> cdrDictionary = new List<CDR>();
         #endregion
 
         #region default and overload constructors
@@ -91,18 +95,26 @@ namespace BillingKata
         #endregion
 
         #region methods
-        public void addNewCDR()
+        public List<CDR> GetCDRList(Customer customer)
         {
-            var cdr = new ArrayList() { subscriberPhoneNo, receiverPhoneNo, startingTime, duration };
+            List<CDR> newCdrDictionary = new List<CDR>();
 
-            /*
-            Console.WriteLine("New CDR added!");
-
-            for (int i = 0; i < cdr.Count; i++)
+            for (int i = 0; i < cdrDictionary.Count; i++)
             {
-                Console.WriteLine(cdr[i]);
+                if(customer.PhoneNumber == cdrDictionary[i].subscriberPhoneNo)
+                {
+                    CDR cdr = cdrDictionary[i];
+                    subscriberPhoneNo = cdr.subscriberPhoneNo;
+                    receiverPhoneNo = cdr.receiverPhoneNo;
+                    startingTime = cdr.startingTime;
+                    duration = cdr.duration;
+
+                    newCdrDictionary.Add(cdr);
+                }
             }
-            */
+
+            return newCdrDictionary;
+
         }
 
         public string CheckExtention()

@@ -130,11 +130,6 @@ namespace BillingKata
         #endregion
 
         #region methods
-        public virtual void GetCallType(CDR cdr)
-        {
-            CallType = cdr.CheckExtention();
-        }
-
         private int GetValueByBillingType()
         {
             switch (BillingType)
