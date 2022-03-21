@@ -12,27 +12,7 @@ namespace BillingKataTest
         {
         }
 
-        #region test cases for customer
-        [Test]
-        public void AddNewCustomer_withAllAttributes_shouldReturnSuccess()
-        {
-            CultureInfo culture = new CultureInfo("en-US");
-
-            Customer cus = new Customer("Nishiki Yapa", "07, Gunasekara Mawatha, Mattumagala, Ragama", "077-5649621", 'A', Convert.ToDateTime("1/1/2010 12:10:15 PM", culture));
-            cus.addNewCustomer();
-        }
-        #endregion
-
         #region test cases for CDR
-        [Test]
-        public void AddNewCDR_withAllAttributes_shouldReturnSuccess()
-        {
-            CultureInfo culture = new CultureInfo("en-US");
-
-            CDR cdr = new CDR("077-5649621", "077-4565324", Convert.ToDateTime("1/1/2010 12:10:15 PM", culture), 5.30);
-            cdr.addNewCDR();
-        }
-
         [Test]
         public void CheckExtention_withSameExtention_shouldReturnTypeLocal()
         {
@@ -56,8 +36,42 @@ namespace BillingKataTest
         {
             CultureInfo culture = new CultureInfo("en-US");
 
-            CDR cdr = new CDR("077-5649621", null, Convert.ToDateTime("1/1/2010 12:10:15 PM", culture), 5.30);
+            CDR cdr = new CDR("077-5649621", "", Convert.ToDateTime("1/1/2010 12:10:15 PM", culture), 5.30);
             cdr.CheckExtention();
+        }
+        #endregion
+
+        #region test for user input validation
+        [Test]
+        public void CheckUSerInput_withNullInput_shouldReturnError()
+        {
+            UserInputHandler newuserinput = new UserInputHandler();
+            newuserinput.userName = "";
+            Assert.IsEmpty(newuserinput.userName);
+        }
+
+        [Test]
+        public void CheckUSerInput_withNotNullInput_shouldReturnSuccess()
+        {
+            UserInputHandler newuserinput = new UserInputHandler();
+            newuserinput.userName = "Nishiki Yapa";
+            Assert.IsNotEmpty(newuserinput.userName);
+        }
+
+        [Test]
+        public void CheckMonthInput_withNullInput_shouldReturnError()
+        {
+            UserInputHandler newuserinput = new UserInputHandler();
+            newuserinput.userMonth = "";
+            Assert.IsEmpty(newuserinput.userMonth);
+        }
+
+        [Test]
+        public void CheckMonthInput_withNotNullInput_shouldReturnSuccess()
+        {
+            UserInputHandler newuserinput = new UserInputHandler();
+            newuserinput.userMonth = "January";
+            Assert.IsNotEmpty(newuserinput.userMonth);
         }
         #endregion
     }

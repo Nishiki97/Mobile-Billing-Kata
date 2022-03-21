@@ -9,11 +9,17 @@ namespace BillingKata
         static void Main(string[] args)
         {
             //user inputs ---------------------------------------
-            Console.WriteLine("Enter Customer's full name: ");
-            string userName = Console.ReadLine();
+            UserInputHandler userInputs = new UserInputHandler();
 
-            Console.WriteLine("Enter the month which you want to generate the bill for {0}: ", userName);
-            string month = Console.ReadLine();
+            Console.WriteLine("Enter Customer's full name: ");
+            userInputs.userName = Console.ReadLine();
+
+            userInputs.CheckUserNameInput();
+
+            Console.WriteLine("Enter the month which you want to generate the bill for {0}: ", userInputs.userName);
+            userInputs.userMonth = Console.ReadLine();
+
+            userInputs.CheckMonthUserInput();
 
             //Customer
             CultureInfo cultureCus = new CultureInfo("en-US");
@@ -40,12 +46,14 @@ namespace BillingKata
             callDetailRecords.cdrList.Add(cdr4);
             CDR cdr5 = new CDR("077-5649621", "071-6753465", Convert.ToDateTime(new DateTime(2021, 5, 10, 5, 10, 20)), 3600);
             callDetailRecords.cdrList.Add(cdr5);
-            callDetailRecords.GetCDRList(customer.GetCustomerDetails(userName), month);
+            CDR cdr6 = new CDR("077-5649621", "071-6753465", Convert.ToDateTime(new DateTime(2021, 5, 10, 5, 10, 20)), 3600);
+            callDetailRecords.cdrList.Add(cdr6);
+            callDetailRecords.GetCDRList(customer.GetCustomerDetails(userInputs.userName), userInputs.userMonth);
             callDetailRecords.CheckExtention();
 
             //Bill
             Bill bill = new Bill();
-            bill.GenerateBill(customer.GetCustomerDetails(userName), callDetailRecords.GetCDRList(customer.GetCustomerDetails(userName), month));
+            bill.GenerateBill(customer.GetCustomerDetails(userInputs.userName), callDetailRecords.GetCDRList(customer.GetCustomerDetails(userInputs.userName), userInputs.userMonth));
 
 
         }

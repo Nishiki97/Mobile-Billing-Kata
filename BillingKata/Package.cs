@@ -95,6 +95,8 @@ namespace BillingKata
         }
         //individual cost
         public double individualCost;
+        //totalCost
+        public double totalCost;
         #endregion
 
         #region default and overload constructors
@@ -187,7 +189,6 @@ namespace BillingKata
                         }
                     }
                 }
-                individualCost = FirstOffPeakhourTypeCharge + SecondOffPeakhourTypeCharge;
                 totalOffPEakCharge += FirstOffPeakhourTypeCharge + SecondOffPeakhourTypeCharge;
             }
 
@@ -219,7 +220,6 @@ namespace BillingKata
                         }
                     }
                 }
-
                 totalPeakHourCharge += PeakhourTypeCharge;
             }
 
@@ -228,7 +228,9 @@ namespace BillingKata
 
         public double CalculateHourCharge(List<CDR> cdr)
         {
-            return GetPeakCharge(cdr) + GetOffPeakCharge(cdr);
+            totalCost = 0.00;
+            totalCost = GetPeakCharge(cdr) + GetOffPeakCharge(cdr);
+            return totalCost;
         }
         #endregion
     }
