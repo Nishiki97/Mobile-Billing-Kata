@@ -5,21 +5,7 @@ namespace BillingKata
     public class UserInputHandler
     {
         public string userName;
-        public enum Months
-        {
-            January,    
-            February,   
-            March,      
-            April,      
-            May,        
-            June,       
-            July,
-            August,
-            September,
-            October,
-            November,
-            December
-        }
+
         public string userMonth;
 
         public void CheckUserNameInput()

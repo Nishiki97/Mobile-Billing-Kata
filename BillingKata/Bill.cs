@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 namespace BillingKata
 {
+    public delegate bool IsTotalChargeMax(double totalCost);
+
     public class Bill
     {
         #region variable declaration
@@ -51,7 +53,7 @@ namespace BillingKata
 
                 Package packageA = new Package('A', 100.00, "Per minute", cdr.CallType, 3, 2, 5, 4, 18.00, 10.00, 10.00, 18.00);
                 Package packageB = new Package('B', 100.00, "Per seconds", cdr.CallType, 4, 3, 6, 5, 20.00, 8.00, 8.00, 20.00);
-                Package packageC = new Package('C', 300.00, "Per minute", cdr.CallType, 2, 1, 3, 2, 18.00, 9.00, 9.00, 18.00);
+                Package packageC = new Package('C', 300.00, "Per minute", cdr.CallType, 2, 1, 2, 3, 18.00, 9.00, 9.00, 18.00);
                 Package packageD = new Package('D', 300.00, "Per seconds", cdr.CallType, 3, 2, 5, 4, 20.00, 8.00, 8.00, 20.00);
 
                 switch (customer.PackageCode)
@@ -80,9 +82,9 @@ namespace BillingKata
             
         }
 
-        public void CalculateDiscount(Customer customer)
+        public void CalculateDiscount(Customer customer, IsTotalChargeMax delegateObj)
         {
-            if (totalCallCharge > 1000.00 && customer.PackageCode == 'A' || totalCallCharge > 1000.00 && customer.PackageCode == 'B')
+            if (delegateObj(totalCallCharge) && customer.PackageCode == 'A' || delegateObj(totalCallCharge) && customer.PackageCode == 'B')
             {
                 discount = totalCallCharge * 40 / 100;
             }
@@ -122,7 +124,7 @@ namespace BillingKata
         public void GenerateBill(Customer customer, List<CDR> cdrList)
         {
             CalculatePackagecost(customer, cdrList);
-            CalculateDiscount(customer);
+            CalculateDiscount(customer, maxAmount => totalCallCharge > 1000.00);
             CalculateGovermentTax(customer);
             CalculateTotalBillAmount();
 

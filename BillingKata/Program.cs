@@ -8,6 +8,19 @@ namespace BillingKata
     {
         static void Main(string[] args)
         {
+            //Customer
+            CultureInfo cultureCus = new CultureInfo("en-US");
+
+            Customer customer = new Customer();
+
+            Customer cus1 = new Customer("Nishiki Yapa", "07, Gunasekara Mawatha, Mattumagala, Ragama", "077-5649621", 'A', Convert.ToDateTime(DateTime.Now, cultureCus));
+            customer.customerList.Add(cus1);
+            Customer cus2 = new Customer("Chiyaki Yapa", "07, Gunasekara Mawatha, Mattumagala, Ragama", "071-5645674", 'B', Convert.ToDateTime(DateTime.Now, cultureCus));
+            customer.customerList.Add(cus2);
+            Customer cus3 = new Customer("Akiyoshi Yapa", "07, Gunasekara Mawatha, Mattumagala, Ragama", "071-5645671", 'C', Convert.ToDateTime(DateTime.Now, cultureCus));
+            customer.customerList.Add(cus3);
+
+
             //user inputs ---------------------------------------
             UserInputHandler userInputs = new UserInputHandler();
 
@@ -20,16 +33,6 @@ namespace BillingKata
             userInputs.userMonth = Console.ReadLine();
 
             userInputs.CheckMonthUserInput();
-
-            //Customer
-            CultureInfo cultureCus = new CultureInfo("en-US");
-
-            Customer customer = new Customer();
-
-            Customer cus1 = new Customer("Nishiki Yapa", "07, Gunasekara Mawatha, Mattumagala, Ragama", "077-5649621", 'A', Convert.ToDateTime(DateTime.Now, cultureCus));
-            customer.customerList.Add(cus1);
-            Customer cus2 = new Customer("Chiyaki Yapa", "07, Gunasekara Mawatha, Mattumagala, Ragama", "071-5645674", 'B', Convert.ToDateTime(DateTime.Now, cultureCus));
-            customer.customerList.Add(cus2);
 
             //CDR
             CultureInfo cultureCDR = new CultureInfo("en-US");
@@ -46,7 +49,7 @@ namespace BillingKata
             callDetailRecords.cdrList.Add(cdr4);
             CDR cdr5 = new CDR("077-5649621", "071-6753465", Convert.ToDateTime(new DateTime(2021, 5, 10, 5, 10, 20)), 3600);
             callDetailRecords.cdrList.Add(cdr5);
-            CDR cdr6 = new CDR("077-5649621", "071-6753465", Convert.ToDateTime(new DateTime(2021, 5, 10, 5, 10, 20)), 3600);
+            CDR cdr6 = new CDR("071-5645671", "077-6753465", Convert.ToDateTime(DateTime.Now, cultureCDR), 300);
             callDetailRecords.cdrList.Add(cdr6);
             callDetailRecords.GetCDRList(customer.GetCustomerDetails(userInputs.userName), userInputs.userMonth);
             callDetailRecords.CheckExtention();
